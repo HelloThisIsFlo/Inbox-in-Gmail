@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 pytest-watch = "*"
+pylint = "*"
+autopep8 = "*"
 
 [packages]
 google-api-python-client = "*"
