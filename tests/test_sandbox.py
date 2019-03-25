@@ -1,7 +1,6 @@
+from src.inboxingmail.sandbox import Sandbox
 
 
 def test_thisisatest():
-    print('hello')
-    print('hello')
-    print('hello')
-    print('hello')
+    sandbox = Sandbox("hello")
+    assert sandbox.hey() == 'hello'
