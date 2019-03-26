@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Start Debug Server w/ Localhost Tunneling" type="CompoundRunConfigurationType">
+    <toRun name="Start Debug Server" type="Python.FlaskServer" />
+    <toRun name="Start Localhost Tunneling" type="BashConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
