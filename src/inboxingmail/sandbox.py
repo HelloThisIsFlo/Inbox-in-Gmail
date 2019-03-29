@@ -5,3 +5,13 @@ class Sandbox:
 
     def hey(self):
         return self._word
+
+
+
+def update_noip_cname_record(domain_to_point_to):
+    pass
+
+
+
+if __name__ == '__main__':
+    print("hello")
