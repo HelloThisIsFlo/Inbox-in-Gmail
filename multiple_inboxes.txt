@@ -1,0 +1,14 @@
+Clean Inbox
+label:INBOX AND ( (NOT label:CATEGORY AND NOT label:Newsletters) OR is:important) 
+
+Social, Updates, Forums, Promotions
+label:INBOX AND label:CATEGORY AND NOT label:Newsletters AND NOT is:important
+
+Newsletters
+label:INBOX AND label:Newsletters AND NOT is:important
+
+---------------------- Spacer ----------------------
+label:asdf
+
+---------------------- Spacer ----------------------
+label:asdf

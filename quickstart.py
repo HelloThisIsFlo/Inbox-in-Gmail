@@ -8,6 +8,8 @@ from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
+from src.inboxingmail.dto import Label
+
 
 class Credentials:
     def __init__(self, client_secrets_file, token_file, scopes):
@@ -89,7 +91,6 @@ class Service:
         pprint(resp['messages'])
         pprint(len(resp['messages']))
 
-
         messages_ids += extract_messages_ids_from_current_page(resp)
         while 'nextPageToken' in resp:
             params['pageToken'] = resp['nextPageToken']
@@ -154,6 +155,10 @@ class Service:
         batch_modify_params = {'ids': email_ids, 'removeLabelIds': [label_id]}
         self._gmail_service.users().messages().batchModify(userId=self._user, body=batch_modify_params).execute()
 
+    def get_message(self, msg_id):
+        resp = self._gmail_service.users().messages().get(userId=self._user, id=msg_id, format='full').execute()
+        return resp
+
 
 class InboxInGmailError(Exception):
     pass
@@ -177,6 +182,9 @@ def add_Newsletters_label_to_all_emails_in_a_newsletter(service):
     service.add_label(emails_in_inbox_and_news, "Newsletters")
 
 
+DEBUG_ANCHOR = Label("DEBUG_ANCHOR", "Label_1584439875888341384")
+
+
 def main():
     # If modifying these scopes, delete the file token.pickle.
     credentials = Credentials(client_secrets_file='credentials.json',
@@ -186,11 +194,22 @@ def main():
     creds = credentials.get_creds()
     service = Service(creds)
 
+    msg = service.get_message('169c4d948afb4ba7')
+    pprint(msg)
+
+    pprint(service._get_all_labels())
+
+
+def old_experimentations():
     # e = service.get_all_email_ids_in_inbox("Newsletters")
     # service.remove_label(e, "Newsletters")
 
     # add_Newsletters_label_to_all_emails_in_a_newsletter(service)
-    service.get_all_email_ids_in_inbox()
+    # service.get_all_email_ids_in_inbox()
+
+    # print(service.find_label_id("DEBUG_ANCHOR"))
+
+    # print(service.get_all_email_ids_in_inbox(DEBUG_ANCHOR.name))
 
     # add_Newsletters_label_to_all_emails_in_a_newsletter(service)
     # help(service._gmail_service.users().messages().batchModify)
